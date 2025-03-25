@@ -26,12 +26,36 @@ def display_menu():
     print("6. Exit")
 
 def add_book(library):
-    title = input("Enter title: ")
-    author = input("Enter author: ")
-    year = input("Enter publication year: ")
-    genre = input("Enter genre: ")
-    read_status = input("Have you read this book? (yes/no): ").strip().lower() == "yes"
-    
+    while True:
+        title = input("Enter title: ").strip()
+        if not title:
+            print("Title cannot be empty. Please enter a valid title.")
+            continue
+        
+        author = input("Enter author: ").strip()
+        if not author:
+            print("Author cannot be empty. Please enter a valid author.")
+            continue
+        
+        year = input("Enter publication year: ").strip()
+        if not year.isdigit():
+            print("Please enter a valid numerical year.")
+            continue
+        
+        genre = input("Enter genre: ").strip()
+        if not genre:
+            print("Genre cannot be empty. Please enter a valid genre.")
+            continue
+        
+        read_status = input("Have you read this book? (yes/no): ").strip().lower()
+        if read_status not in ["yes", "no"]:
+            print("Please enter 'yes' or 'no' for read status.")
+            continue
+
+        read_status = read_status == "yes"  # Convert to boolean (True if "yes", False if "no")
+
+        break  # Exit loop once all inputs are valid
+
     if any(book["Title"].lower() == title.lower() for book in library):
         print("A book with this title already exists!")
         return
